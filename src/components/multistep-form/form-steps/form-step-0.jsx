@@ -32,7 +32,7 @@ class FormStep0 extends Component {
 
     for (let i = 0; i < inputs.length; i++) { 
       if (inputs[i].checked) {
-        incomingState[this.name] = (inputs[i].value === 'true')
+        incomingState[this.name] = (inputs[i].value === 'true');
         this.setState(incomingState);
         break;
       } 
@@ -60,12 +60,12 @@ class FormStep0 extends Component {
           onSubmit={this.onNextClick}
         >
           <div>
-            <input type="radio" id="false" name={this.name} value="false"/>
+            <input type="radio" id="false" name={this.name} value="false" checked={this.state[this.name] === false}/>
             <label htmlFor="false">No, but it would be subLIME if I did.</label>
           </div>
 
           <div>
-            <input type="radio" id="true" name={this.name} value="true"/>
+            <input type="radio" id="true" name={this.name} value="true" checked={this.state[this.name] === true}/>
             <label htmlFor="true">Yes, I do!</label>
           </div>
         </form>
