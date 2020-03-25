@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import BtnNext from '../buttons/btn-next';
 
 
-class FormStep0 extends Component {
+class FormStep1 extends Component {
   
   constructor(props) {
     let _initialState = {};
@@ -11,7 +11,7 @@ class FormStep0 extends Component {
     super(props);
 
     this.id = 'form-step-0';
-    this.name = 'isLime';
+    this.name = 'hasTequila';
     this.form = null;
     this.formActions = this.props.formActions;
     this.onNextClick = this.onNextClick.bind(this);
@@ -76,4 +76,4 @@ class FormStep0 extends Component {
   }
 }
 
-export default FormStep0;
+export default FormStep1;
