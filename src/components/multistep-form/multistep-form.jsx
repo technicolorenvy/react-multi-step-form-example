@@ -11,7 +11,6 @@ const FORM_STEP_PRE = 'form-step-';
 const IS_DEVING = false;
 const DEV_STEP = 0;
 
-
 class MultistepForm extends Component {
   
   constructor(props) {
@@ -56,12 +55,13 @@ class MultistepForm extends Component {
 
   /**
    * Import all steps from the form-steps dir as determined by value of FORM_STEP_COUNT
+   * then update this.formStepCollection
    */
   importFormSteps() {
     let formStepFetchCollection = {},
         _formStepCollection = {};
     
-    // Create the layer data import fns
+    // Create the forn step import fns
     for (let i = 0; i < FORM_STEP_COUNT; i++) {
       let stepKey = FORM_STEP_PRE+i;
       formStepFetchCollection[stepKey] = (callback) => {
@@ -112,7 +112,7 @@ class MultistepForm extends Component {
 
   /**
    * Returns the current form step component based on the current value of
-   * this.state.formStep
+   * this.state.formStep and the contents of this.formStepCollection
    */
   getCurrentFormStep() {
     let FormComponent, 
