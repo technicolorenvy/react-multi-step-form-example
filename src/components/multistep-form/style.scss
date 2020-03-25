@@ -1,8 +1,40 @@
 .multistep-form {
+  width: 100%;
+  
+  .form-inner {
+    position: relative;
+    padding: 70px;
 
-  form {
-    display: inline-block;
-    margin: 25px;
-    width: calc(100% - 50px);
+
+    form {
+      display: inline-block;
+      margin: 25px;
+      width: calc(100% - 50px);
+    }
+
+    .btn-back,
+    .btn-next {
+      position: absolute;
+      top: 300px;
+      border: 1px solid #666;
+      outline: none;
+      padding: 10px;
+      background-color: #fff;
+      transition: background-color 0.2s;
+      transition-timing-function: ease-out;     
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+
+    .btn-back {
+      left: 70px;
+    }
+    .btn-back {
+      right: 70px;
+    }    
   }
+
+
 }

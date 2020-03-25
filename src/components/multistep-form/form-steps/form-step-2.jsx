@@ -71,8 +71,8 @@ class FormStep2 extends Component {
           </div>
         </form>
 
-        <BtnNext onClick={this.onNextClick} />
         <BtnBack onClick={this.onBackClick} />
+        <BtnNext onClick={this.onNextClick} />
       </div>
     );
   }

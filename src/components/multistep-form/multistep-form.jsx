@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
+import { parallel } from 'async-es';
 
-import FormStep0 from './form-steps/form-step-0';
-import FormStep1 from './form-steps/form-step-1';
-import FormStep2 from './form-steps/form-step-2';
-import FormStep3 from './form-steps/form-step-3';
+// import FormStep0 from './form-steps/form-step-0';
+// import FormStep1 from './form-steps/form-step-1';
+// import FormStep2 from './form-steps/form-step-2';
+// import FormStep3 from './form-steps/form-step-3';
 
 import './style.scss';
+
+const FORM_STEP_COUNT = 4;
+const FORM_STEP_PRE = 'form-step-';
 
 // these are handy when debugging things
 const IS_DEVING = false;
@@ -19,6 +23,7 @@ class MultistepForm extends Component {
 
     this.nextStep = this.nextStep.bind(this);
     this.prevStep = this.prevStep.bind(this);
+    this.formStepCollection = [];
 
     // Get ready... set... formActions!
     this.formActions = { 
@@ -29,7 +34,8 @@ class MultistepForm extends Component {
     this.state = {
       formStep: 0,
       direction: 0,
-      formData: {}
+      formData: {},
+      subStepsLoaded: false
     };
   }
 
@@ -40,6 +46,8 @@ class MultistepForm extends Component {
     if(IS_DEVING) {
       this.setState({formStep: DEV_STEP});
     }    
+
+    this.importFormSteps();
   }
 
   /**
@@ -50,6 +58,35 @@ class MultistepForm extends Component {
       console.log(this.state.formData);
     }
   }
+
+  /**
+   * Import all steps from the form-steps dir as determined by value of FORM_STEP_COUNT
+   */
+  importFormSteps() {
+    let formStepFetchCollection = {},
+        _formStepCollection = {};
+    
+    // Create the layer data import fns
+    for (let i = 0; i < FORM_STEP_COUNT; i++) {
+      let stepKey = FORM_STEP_PRE+i;
+      formStepFetchCollection[stepKey] = (callback) => {
+        import(`./form-steps/${stepKey}`).then( res => callback(null, res) ); 
+      }  
+    }
+
+    return new Promise((resolve) => {
+      // Fetch all the things
+      parallel(formStepFetchCollection, (innerErr, innerRes) => {
+        Object.keys(innerRes).forEach(v => {
+          _formStepCollection[v] = innerRes[v].default;
+        })
+        this.formStepCollection = _formStepCollection;   
+        this.setState({subStepsLoaded: true});
+        resolve();
+      })
+    });
+  }
+
 
   /**
    * Increments form step by 1
@@ -79,66 +116,27 @@ class MultistepForm extends Component {
     this.setState({formStep: 0, direction: 0});
   }
 
+  /**
+   * Returns the current form step component based on the current value of
+   * this.state.formStep
+   */
   getCurrentFormStep() {
-    let formComponent, 
-        formData = this.state.formData;
+    let FormComponent, 
+        formData;
 
-    switch(this.state.formStep) {
-      // // Start
-      case 0:
-        formComponent = (
-          <FormStep0
-            formData={formData}
-            formActions={this.formActions}
-          />
-        );
-        break;
+    if (this.state.subStepsLoaded === false) { return; }
 
-      // 
-      case 1:
-        formComponent = (
-          <FormStep1
-            formData={formData}
-            formActions={this.formActions}
-            activeScenario={this.props.activeScenario}
-            {...this.props}
-          />
-        );
+    FormComponent = this.formStepCollection[FORM_STEP_PRE+this.state.formStep];
+    formData = this.state.formData;    
 
-        break;
-
-      // 
-      case 2:
-
-        formComponent = (
-          <FormStep2
-            formData={formData}
-            formActions={this.formActions}
-            {...this.props}
-          />
-        );
-
-        break;
-
-      // 
-      case 3:
-
-        formComponent = (
-          <FormStep3
-            formData={formData}
-            formActions={this.formActions}
-            {...this.props}
-          />
-        );
-
-        break;
-
-      default:
-        // Pound dirt
-        break;
-    }
-
-    return formComponent;
+    return (
+      <FormComponent
+        formData={formData}
+        formActions={this.formActions}
+        activeScenario={this.props.activeScenario}
+        {...this.props}      
+      />
+    );
   }
 
   render () {
@@ -147,8 +145,9 @@ class MultistepForm extends Component {
 
     return (
       <div className={formClass}>
-        {currentFormStep}
-
+        <div className="form-inner">
+          {currentFormStep}
+        </div>
       </div>
     );
   }

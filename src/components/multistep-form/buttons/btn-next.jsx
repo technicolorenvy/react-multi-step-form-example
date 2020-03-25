@@ -16,7 +16,7 @@ class BtnBack extends Component {
   render() {
     return (
       <button
-        className="btn-next empahsis-font-1"
+        className="btn-next"
         onClick={this.onNextClick
       }>
         Next &#62;

@@ -10,10 +10,6 @@ class FormStep3 extends Component {
     this.formActions = this.props.formActions;
   }
 
-  onNextClick() {
-    this.formActions.onNextClick();
-  }
-
   onBackClick() {
     this.formActions.onBackClick();
   }
@@ -30,7 +26,9 @@ class FormStep3 extends Component {
         ): (
           <h2>Sorry, you are not currently Marg worthy, get yourself a nice glass of water and stay hydrated!</h2>
         )}
-
+        <code>
+          {JSON.stringify(this.props.formData)}
+        </code>
         <BtnBack onClick={this.onBackClick} />
       </div>
     );
