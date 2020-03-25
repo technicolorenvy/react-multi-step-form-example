@@ -11,6 +11,15 @@
       display: inline-block;
       margin: 25px;
       width: calc(100% - 50px);
+
+      > div {
+        margin-bottom: 12px;
+
+        label:hover {
+          cursor: pointer;
+        }
+      }
+
     }
 
     .btn-back,

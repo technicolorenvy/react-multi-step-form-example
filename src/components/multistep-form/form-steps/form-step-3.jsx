@@ -20,7 +20,7 @@ class FormStep3 extends Component {
                     && formData.hasTequila === true
                     && formData.hasCointreau === true);
     return (
-      <div className="">
+      <div className="form-step">
 
         {isMargWorthy ? (
           <h2>It's 5 o'clock somewhere, let's make that Marg!</h2>

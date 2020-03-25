@@ -52,7 +52,7 @@ class FormStep2 extends Component {
   render () {
 
     return (
-      <div className="">
+      <div className="form-step">
         <p>Do you have cointreau?</p>
         
         <form 
