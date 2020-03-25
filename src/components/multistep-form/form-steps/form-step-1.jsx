@@ -15,8 +15,9 @@ class FormStep0 extends Component {
     this.form = null;
     this.formActions = this.props.formActions;
     this.onNextClick = this.onNextClick.bind(this);
+    this.onBackClick = this.onBackClick.bind(this);
     this.onChange = this.onChange.bind(this);
-    console.log(this.props.formData);
+
     _initialState[this.name] = this.props.formData[this.name] || false;
     this.state = _initialState;
     
@@ -60,12 +61,12 @@ class FormStep0 extends Component {
           onSubmit={this.onNextClick}
         >
           <div>
-            <input type="radio" id="false" name={this.name} value="false" checked={this.state[this.name] === false}/>
+            <input type="radio" id="false" name={this.name} value="false" defaultChecked={this.state[this.name] === false}/>
             <label htmlFor="false">No, I'm not on Spring break.</label>
           </div>
 
           <div>
-            <input type="radio" id="true" name={this.name} value="true" checked={this.state[this.name] === true}/>
+            <input type="radio" id="true" name={this.name} value="true" defaultChecked={this.state[this.name] === true}/>
             <label htmlFor="true">Yes, I do!</label>
           </div>
         </form>

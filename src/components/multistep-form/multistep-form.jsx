@@ -43,16 +43,23 @@ class MultistepForm extends Component {
   }
 
   /**
+   * React lifecycle - logging current value of this.state.formDate
+   */
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.formData != prevState.formData) {
+      console.log(this.state.formData);
+    }
+  }
+
+  /**
    * Increments form step by 1
    */
   nextStep(data) {
-    console.log(data);
     this.setState({
       formStep: this.state.formStep + 1,
       direction: 0,
       formData: Object.assign({}, this.state.formData, data)
     });
-    console.log(this.state)
   }
 
   /**
