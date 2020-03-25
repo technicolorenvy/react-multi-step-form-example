@@ -21,11 +21,14 @@ class FormStep3 extends Component {
                     && formData.hasCointreau === true);
     return (
       <div className="">
+
         {isMargWorthy ? (
           <h2>It's 5 o'clock somewhere, let's make that Marg!</h2>
         ): (
           <h2>Sorry, you are not currently Marg worthy, get yourself a nice glass of water and stay hydrated!</h2>
         )}
+
+        <p>Data Captured: </p>
         <code>
           {JSON.stringify(this.props.formData)}
         </code>

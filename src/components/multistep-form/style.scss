@@ -3,8 +3,9 @@
   
   .form-inner {
     position: relative;
-    padding: 70px;
-
+    width: 900px;
+    margin: 0 auto;
+    padding: 50px 0;
 
     form {
       display: inline-block;
@@ -22,17 +23,19 @@
       background-color: #fff;
       transition: background-color 0.2s;
       transition-timing-function: ease-out;     
+      font-size: 16px;
 
       &:hover {
         background-color: #ddd;
+        cursor: pointer;
       }
     }
 
     .btn-back {
-      left: 70px;
+      left: 0px;
     }
-    .btn-back {
-      right: 70px;
+    .btn-next {
+      right: 0px;
     }    
   }
 
