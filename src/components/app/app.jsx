@@ -1,10 +1,15 @@
-import React, { Component } from 'react';
-
-import MultistepForm from '../multistep-form/multistep-form';
+import React, { 
+  Component,
+  Suspense, 
+  lazy  
+} from 'react';
 
 // commenting this out, but I tend to like to have some form of a css reset in place
 // import './reset.scss';
 import './style.scss';
+
+const MultistepForm = lazy(() => import('../multistep-form/multistep-form'));
+
 
 class App extends Component {
   
@@ -15,8 +20,9 @@ class App extends Component {
           <h1>Hello Multistep form</h1>
         </header>
 
-        <MultistepForm />
-
+        <Suspense fallback={<div>Loading...</div>}>
+          <MultistepForm />
+        </Suspense>
       </div>
     );
   }
