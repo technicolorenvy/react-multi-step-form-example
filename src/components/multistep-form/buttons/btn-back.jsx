@@ -4,7 +4,6 @@ class BtnBack extends Component {
 
   constructor(props) {
     super(props);
-
     this.onBackClick = this.onBackClick.bind(this);
   }
 

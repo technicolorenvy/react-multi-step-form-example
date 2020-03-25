@@ -8,8 +8,9 @@ import React, {
 // import './reset.scss';
 import './style.scss';
 
+// Use lazy and Suspense (below) to handle lazy loading components 
+// this improves page render performance (see code-splitting in docs)
 const MultistepForm = lazy(() => import('../multistep-form/multistep-form'));
-
 
 class App extends Component {
   

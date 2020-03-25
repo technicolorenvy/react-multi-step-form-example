@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import BtnNext from '../buttons/btn-next';
 
-
 class FormStep1 extends Component {
   
   constructor(props) {

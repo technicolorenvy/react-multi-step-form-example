@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { parallel } from 'async-es';
 
-// import FormStep0 from './form-steps/form-step-0';
-// import FormStep1 from './form-steps/form-step-1';
-// import FormStep2 from './form-steps/form-step-2';
-// import FormStep3 from './form-steps/form-step-3';
-
 import './style.scss';
 
+// form related constants
 const FORM_STEP_COUNT = 4;
 const FORM_STEP_PRE = 'form-step-';
 
-// these are handy when debugging things
+// these are handy when debugging things, see componentDidMount below
 const IS_DEVING = false;
 const DEV_STEP = 0;
 
@@ -25,7 +21,6 @@ class MultistepForm extends Component {
     this.prevStep = this.prevStep.bind(this);
     this.formStepCollection = [];
 
-    // Get ready... set... formActions!
     this.formActions = { 
       onNextClick: this.nextStep,
       onBackClick: this.prevStep
@@ -54,7 +49,7 @@ class MultistepForm extends Component {
    * React lifecycle - logging current value of this.state.formDate
    */
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.formData != prevState.formData) {
+    if (this.state.formData !== prevState.formData) {
       console.log(this.state.formData);
     }
   }
@@ -87,14 +82,13 @@ class MultistepForm extends Component {
     });
   }
 
-
   /**
    * Increments form step by 1
    */
   nextStep(data) {
     this.setState({
       formStep: this.state.formStep + 1,
-      direction: 0,
+      direction: 1,
       formData: Object.assign({}, this.state.formData, data)
     });
   }
@@ -105,15 +99,15 @@ class MultistepForm extends Component {
   prevStep() {
     this.setState({
       formStep: this.state.formStep - 1,
-      direction: 1
+      direction: 0
     });
   }
 
   /**
-   * Resets this.state.formStep and this.state.direction
+   * Resets this.state
    */
   resetForm() {
-    this.setState({formStep: 0, direction: 0});
+    this.setState({formStep: 0, direction: 0, formData: {}});
   }
 
   /**
@@ -139,6 +133,9 @@ class MultistepForm extends Component {
     );
   }
 
+  /**
+   * React lifecycle method
+   */
   render () {
     let currentFormStep = this.getCurrentFormStep(),
         formClass = `multistep-form form-state-${this.state.formStep}`;
